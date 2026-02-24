@@ -1,0 +1,45 @@
+# Data & output
+sample_data/
+test_out/
+test_out_vecs/
+test_20/
+test_batch/
+
+# Binary files
+*.glb
+*.npy
+*.bin
+*.pkl
+*.ply
+*.obj
+*.fbx
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.so
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log

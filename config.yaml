@@ -1,0 +1,89 @@
+joint_names:
+  def_c_root_joint: 1
+  def_c_chest_joint: 2
+  def_c_neck1_joint: 3
+  def_c_head_joint: 4
+  def_c_jaw_joint: 5
+  def_eye_joint.L: 6
+  def_eye_joint.R: 7
+  def_clavicle_joint.L: 8
+  def_clavicle_joint.R: 9
+  def_c_tail1_joint: 10
+  def_c_anus_joint: 11
+  def_c_tail2_joint: 12
+  def_frontLegUpr_joint.L: 13
+  def_frontLegLwr_joint.L: 14
+  def_frontFoot_joint.L: 15
+  def_frontLegLwrAllTwist_joint.L: 16
+  def_frontLegUpr_joint.R: 17
+  def_frontLegLwr_joint.R: 18
+  def_frontFoot_joint.R: 19
+  def_frontLegLwrAllTwist_joint.R: 20
+  def_rearLegUpr_joint.L: 21
+  def_rearLegLwr_joint.L: 22
+  def_rearFoot_joint.L: 23
+  def_rearLegLwrAllTwist_joint.L: 24
+  def_rearLegUprAllTwist_joint.L: 25
+  def_rearLegUpr_joint.R: 26
+  def_rearLegLwr_joint.R: 27
+  def_rearFoot_joint.R: 28
+  def_rearLegLwrAllTwist_joint.R: 29
+  def_rearLegUprAllTwist_joint.R: 30
+
+color_map:
+  head: blue
+  body: green
+  limbs_upper_joint: red
+  limbs_lower_joint: skyblue
+  foot: cyan
+  tail1: purple
+  tail2: gray
+  twist: black
+  clavicle: pink
+  eye: orange
+  neck_and_anus: yellow
+
+body_parts:
+  head:
+    - def_c_head_joint
+    - def_c_jaw_joint
+    - def_eye_joint.L
+    - def_eye_joint.R
+  body:
+    - def_c_root_joint
+    - def_c_chest_joint
+  limbs_upper_joint:
+    - def_frontLegUpr_joint.L
+    - def_frontLegUpr_joint.R
+    - def_rearLegUpr_joint.L
+    - def_rearLegUpr_joint.R
+  limbs_lower_joint:
+    - def_frontLegLwr_joint.L
+    - def_frontLegLwr_joint.R
+    - def_rearLegLwr_joint.L
+    - def_rearLegLwr_joint.R
+  foot:
+    - def_frontFoot_joint.L
+    - def_frontFoot_joint.R
+    - def_rearFoot_joint.L
+    - def_rearFoot_joint.R
+  tail1:
+    - def_c_tail1_joint
+  tail2:
+    - def_c_tail2_joint
+  twist:
+    - def_frontLegLwrAllTwist_joint.L
+    - def_frontLegLwrAllTwist_joint.R
+    - def_rearLegLwrAllTwist_joint.L
+    - def_rearLegUprAllTwist_joint.L
+    - def_rearLegLwrAllTwist_joint.R
+    - def_rearLegUprAllTwist_joint.R
+  clavicle:
+    - def_clavicle_joint.L
+    - def_clavicle_joint.R
+  eye:
+    - def_eye_joint.L
+    - def_eye_joint.R
+  neck_and_anus:
+    - def_c_anus_joint
+    - def_c_neck1_joint
