@@ -48,6 +48,7 @@ class GLBData:
     rest_world_matrices: np.ndarray  # (N, 4, 4)
     inverse_bind_matrices: np.ndarray  # (N, 4, 4)
     animo_to_glb: dict = field(default_factory=dict)  # AniMo idx → GLB joint idx
+    ref_root_rot_frame0: list = None  # Reference animation root rotation at frame 0 (xyzw)
 
 
 # ---------------------------------------------------------------------------
@@ -251,6 +252,21 @@ def parse_glb(path: str) -> GLBData:
         if animo_name in glb_name_to_idx:
             animo_to_glb[animo_idx] = glb_name_to_idx[animo_name]
 
+    # Reference animation root rotation at frame 0 (xyzw), if available
+    ref_root_rot_frame0 = None
+    root_si = 0  # first skin joint = root
+    root_ni = joint_node_indices[root_si]
+    for anim in gltf.get("animations", []):
+        for ch in anim["channels"]:
+            if (ch["target"]["node"] == root_ni
+                    and ch["target"]["path"] == "rotation"):
+                sampler = anim["samplers"][ch["sampler"]]
+                rot_data = _read_accessor(gltf, bin_buffer, sampler["output"])
+                ref_root_rot_frame0 = rot_data[0].tolist()  # xyzw
+                break
+        if ref_root_rot_frame0 is not None:
+            break
+
     return GLBData(
         json_tree=gltf,
         bin_buffer=bin_buffer,
@@ -260,4 +276,5 @@ def parse_glb(path: str) -> GLBData:
         rest_world_matrices=rest_world,
         inverse_bind_matrices=ibms,
         animo_to_glb=animo_to_glb,
+        ref_root_rot_frame0=ref_root_rot_frame0,
     )

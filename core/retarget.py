@@ -277,6 +277,21 @@ def retarget(positions_animo: np.ndarray, glb_data, tiered: bool = True) -> tupl
     rest_fwd_tiled = np.tile(rest_forward, (T, 1))
     root_delta = qbetween(rest_fwd_tiled, actual_forward)  # (T, 4) wxyz
 
+    # Apply reference animation heading offset.
+    # AniMo positions are heading-normalized (animal faces +Z at frame 0).
+    # The reference GLB animation may have the animal at a different heading.
+    # Extract that heading offset and apply it so the output matches the
+    # reference orientation.
+    if glb_data.ref_root_rot_frame0 is not None:
+        ref_xyzw = glb_data.ref_root_rot_frame0
+        ref_wxyz = np.array([ref_xyzw[3], ref_xyzw[0], ref_xyzw[1], ref_xyzw[2]],
+                            dtype=np.float64)
+        rest_rot_wxyz = glb_rest_rot[chain_to_glb[0]]  # root rest world rotation
+        # heading_offset = ref_frame0 * inv(rest)
+        heading_offset = qmul(ref_wxyz.reshape(1, 4),
+                              qinv(rest_rot_wxyz.reshape(1, 4)))  # (1, 4)
+        root_delta = qmul(np.tile(heading_offset, (T, 1)), root_delta)
+
     # --- Step 2: Per-bone direction deltas ---
     # For each tracked joint, find its nearest tracked ancestor in the
     # GLB *physical* hierarchy and compute the bone direction from there.
